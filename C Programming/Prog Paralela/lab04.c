@@ -11,13 +11,17 @@
 #include <time.h>
 #include <omp.h>
 
+void setArray(unsigned long* array, unsigned long size){
+    for (int i = 0; i < size; i++) {
+      array[i] = 1;
+    }
+}
+
 int main() {
-    unsigned long size = 0x1 << 27;
+    unsigned long size = 0x1 << 29;
     clock_t begin, end;
 
-    unsigned long *array1 = (unsigned long*)calloc(size, sizeof(unsigned long));
-    unsigned long *array2 = (unsigned long*)calloc(size, sizeof(unsigned long));
-    unsigned long *array3 = (unsigned long*)calloc(size, sizeof(unsigned long));
+    unsigned long *array = (unsigned long*)calloc(size, sizeof(unsigned long));
     unsigned long sum1 = 0;
     unsigned long sum2 = 0;
     unsigned long sum3 = 0;
@@ -28,19 +32,14 @@ int main() {
 
     printf("max threads: %d - array size: %ld\n", max, size);
 
-    for (int i = 0; i < size; i++) {
-        array1[i] = 1;
-        array2[i] = 1;
-        array3[i] = 1;
-    }
-
 //1. for paralelo com vetor compartilhado para a soma parcial por thread
+    setArray(array, size);
     begin = clock();
 #pragma omp parallel shared(tempArray)
     {
         for (int i = 0; i < chunk; i++)
         {
-            tempArray[omp_get_thread_num()] += array1[(chunk * omp_get_thread_num())+i];
+            tempArray[omp_get_thread_num()] += array[(chunk * omp_get_thread_num())+i];
         }
     }
 
@@ -51,6 +50,7 @@ int main() {
     printf("1. %f tics - sum: %ld\n", (double)(end - begin), sum1);
 
 //2. for paralelo com sessao critica para a soma
+    setArray(array, size);
     begin = clock();
 #pragma omp parallel
     {
@@ -58,7 +58,7 @@ int main() {
         {
 #pragma omp critical
             {
-                sum2 += array2[(chunk * omp_get_thread_num())+i];
+                sum2 += array[(chunk * omp_get_thread_num())+i];
             }
         }
     }
@@ -66,10 +66,11 @@ int main() {
     printf("2. %f tics - sum: %ld\n", (double)(end - begin), sum2);
 
 //3. for paralelizado e gerenciado pelo OpenMP
+    setArray(array, size);
     begin = clock();
 #pragma omp parallel for reduction(+ : sum3)
       for (int i = 0; i < size; i++) {
-          sum3 += array3[i];
+          sum3 += array[i];
       }
     end = clock();
     printf("3. %f tics - sum: %ld\n", (double)(end - begin), sum3);
