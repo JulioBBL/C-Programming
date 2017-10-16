@@ -1,9 +1,6 @@
 //
-//  lab04.c
-//  C Programming
-//
-//  Created by Julio Brazil on 06/10/17.
-//  Copyright © 2017 Julio Brazil LTDA. All rights reserved.
+//  Julio Brazil - 31583784
+//  Leonardo Toniolo - 
 //
 
 #include <stdlib.h>
