@@ -10,7 +10,7 @@
 
 void exec1(unsigned int *array, unsigned long size, unsigned long chunk) {
     unsigned int sum = 0;
-    
+
 #pragma omp parallel
     {
         for (int i = 0; i < chunk; i++)
@@ -25,8 +25,8 @@ void exec1(unsigned int *array, unsigned long size, unsigned long chunk) {
 
 void exec2(unsigned int *array, unsigned long size) {
     unsigned int sum = 0;
-    
-#pragma omp parallel for reduction(+ : sum2)
+
+#pragma omp parallel for reduction(+ : sum)
     for (int i = 0; i < size; i++) {
         sum += array[i];
     }
@@ -35,20 +35,20 @@ void exec2(unsigned int *array, unsigned long size) {
 int main() {
     unsigned long size = 0x1 << 27;
     clock_t begin, end;
-    
-    unsigned int *array = (unsigned long*)calloc(size, sizeof(unsigned int));
+
+    unsigned int *array = (unsigned int*)calloc(size, sizeof(unsigned int));
     double time1 = 0;
     double time2 = 0;
-    
+
     int max = omp_get_max_threads();
     unsigned long chunk = size / max;
-    
+
     printf("max threads: %d - array size: %ld\n", max, size);
-    
+
     for (int i = 0; i < size; i++) {
         array[i] = 1;
     }
-    
+
     //1. for paralelo com sessao critica para a soma
     for (int i = 0; i < 5; i++) {
         begin = clock();
@@ -57,8 +57,8 @@ int main() {
         time1 += (double)(end - begin);
     }
     printf("1. %f tics\n", (time1/5));
-    
-    
+
+
     //2. for paralelizado e gerenciado pelo OpenMP
     for (int i = 0; i < 5; i++) {
         begin = clock();
@@ -67,7 +67,6 @@ int main() {
         time2 += (double)(end - begin);
     }
     printf("2. %f tics\n", (time2/5));
-    
+
     return 0;
 }
-
