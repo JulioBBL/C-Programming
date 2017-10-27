@@ -8,17 +8,40 @@
 #include <time.h>
 #include <omp.h>
 
+void exec1(unsigned int *array, unsigned long size, unsigned long chunk) {
+    unsigned int sum = 0;
+    
+#pragma omp parallel
+    {
+        for (int i = 0; i < chunk; i++)
+        {
+#pragma omp critical
+            {
+                sum += array[(chunk * omp_get_thread_num())+i];
+            }
+        }
+    }
+}
+
+void exec2(unsigned int *array, unsigned long size) {
+    unsigned int sum = 0;
+    
+#pragma omp parallel for reduction(+ : sum2)
+    for (int i = 0; i < size; i++) {
+        sum += array[i];
+    }
+}
+
 int main() {
     unsigned long size = 0x1 << 27;
     clock_t begin, end;
     
-    unsigned long *array = (unsigned long*)calloc(size, sizeof(unsigned long));
-    unsigned long sum1 = 0;
-    unsigned long sum2 = 0;
+    unsigned int *array = (unsigned long*)calloc(size, sizeof(unsigned int));
+    double time1 = 0;
+    double time2 = 0;
     
     int max = omp_get_max_threads();
     unsigned long chunk = size / max;
-    unsigned long *tempArray = (unsigned long*)calloc(max, sizeof(unsigned long));
     
     printf("max threads: %d - array size: %ld\n", max, size);
     
@@ -27,29 +50,23 @@ int main() {
     }
     
     //1. for paralelo com sessao critica para a soma
-    begin = clock();
-#pragma omp parallel
-    {
-        for (int i = 0; i < chunk; i++)
-        {
-#pragma omp critical
-            {
-                sum1 += array[(chunk * omp_get_thread_num())+i];
-            }
-        }
+    for (int i = 0; i < 5; i++) {
+        begin = clock();
+        exec1(array,size,chunk);
+        end = clock();
+        time1 += (double)(end - begin);
     }
-    end = clock();
-    printf("1. %f tics - sum: %ld\n", (double)(end - begin), sum1);
+    printf("1. %f tics\n", (time1/5));
     
     
     //2. for paralelizado e gerenciado pelo OpenMP
-    begin = clock();
-#pragma omp parallel for reduction(+ : sum2)
-    for (int i = 0; i < size; i++) {
-        sum2 += array[i];
+    for (int i = 0; i < 5; i++) {
+        begin = clock();
+        exec2(array,size);
+        end = clock();
+        time2 += (double)(end - begin);
     }
-    end = clock();
-    printf("2. %f tics - sum: %ld\n", (double)(end - begin), sum2);
+    printf("2. %f tics\n", (time2/5));
     
     return 0;
 }
