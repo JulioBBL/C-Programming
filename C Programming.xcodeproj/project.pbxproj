@@ -12,6 +12,7 @@
 		596C9E491F6C15E6000DD45F /* Fibonnacci.c in Sources */ = {isa = PBXBuildFile; fileRef = 596C9E471F6C15E6000DD45F /* Fibonnacci.c */; };
 		59A6AC501F647B6E001F2A1A /* lab02.c in Sources */ = {isa = PBXBuildFile; fileRef = 59A6AC4E1F647B6E001F2A1A /* lab02.c */; };
 		59C89B2B1F50683800CAEB0A /* lab01.c in Sources */ = {isa = PBXBuildFile; fileRef = 59C89B2A1F50683800CAEB0A /* lab01.c */; };
+		59CE07E81FA36FB600F71EB9 /* lab05.c in Sources */ = {isa = PBXBuildFile; fileRef = 59CE07E71FA36FB600F71EB9 /* lab05.c */; };
 		59D67BEE1F6AC1AB004A6D6B /* AutomatoFD.c in Sources */ = {isa = PBXBuildFile; fileRef = 59D67BEC1F6AC1AB004A6D6B /* AutomatoFD.c */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		596C9E471F6C15E6000DD45F /* Fibonnacci.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Fibonnacci.c; sourceTree = "<group>"; };
 		59A6AC4E1F647B6E001F2A1A /* lab02.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lab02.c; sourceTree = "<group>"; };
 		59C89B2A1F50683800CAEB0A /* lab01.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lab01.c; sourceTree = "<group>"; };
+		59CE07E71FA36FB600F71EB9 /* lab05.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lab05.c; sourceTree = "<group>"; };
 		59D67BEC1F6AC1AB004A6D6B /* AutomatoFD.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AutomatoFD.c; path = Automatos/AutomatoFD.c; sourceTree = "<group>"; };
 		59F3BE981F4B0B3300963B94 /* C Programming */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "C Programming"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F3BEA31F4B0B4C00963B94 /* a.out */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = a.out; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				59A6AC4E1F647B6E001F2A1A /* lab02.c */,
 				596C9E471F6C15E6000DD45F /* Fibonnacci.c */,
 				59048BA21F87CD76006D54A2 /* lab04.c */,
+				59CE07E71FA36FB600F71EB9 /* lab05.c */,
 			);
 			path = "Prog Paralela";
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			files = (
 				59A6AC501F647B6E001F2A1A /* lab02.c in Sources */,
 				59D67BEE1F6AC1AB004A6D6B /* AutomatoFD.c in Sources */,
+				59CE07E81FA36FB600F71EB9 /* lab05.c in Sources */,
 				596C9E491F6C15E6000DD45F /* Fibonnacci.c in Sources */,
 				59048BA31F87CD76006D54A2 /* lab04.c in Sources */,
 				594F63F81F581D9600E3383E /* digrafoListas.c in Sources */,
