@@ -1,4 +1,5 @@
 echo "let's start."
+gcc lab05.c -O0 -fopenmp
 
 echo "omp_num_Threads set to 1"
 export OMP_NUM_THREADS=1
