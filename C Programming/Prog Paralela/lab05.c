@@ -62,7 +62,7 @@ int main() {
 
 
     //2. for paralelizado e gerenciado pelo OpenMP
-    printf("Started algorithm 1\n");
+    printf("Started algorithm 2\n");
     for (int i = 0; i < 5; i++) {
         printf("%d%%\n", (i*20));
         begin = clock();
@@ -70,7 +70,7 @@ int main() {
         end = clock();
         time2 += (double)(end - begin);
     }
-    printf("Ended algorithm 2. %f tics\n", (time2/5));
+    printf("Ended algorithm 2 - %f tics\n", (time2/5));
 
     return 0;
 }
